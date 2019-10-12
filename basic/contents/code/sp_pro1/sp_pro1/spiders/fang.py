@@ -10,7 +10,9 @@ class FangSpider(scrapy.Spider):
     def parse(self, response):
         # print(response.status)
         print('*' * 70)
+        print(response)
         hlist = response.css("li.houst_ctn")
+        print(hlist)
         for vo in hlist:
             item = FangItem()
             item['title'] =  vo.css("span.house_name::text").extract_first()
