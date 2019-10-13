@@ -10,16 +10,11 @@ class FangSpider(scrapy.Spider):
     def parse(self, response):
         # print(response.status)
         print('*' * 70)
-        print(response)
         hlist = response.css("li.houst_ctn")
-        print(hlist)
         for vo in hlist:
             item = FangItem()
             item['title'] =  vo.css("span.house_name::text").extract_first()
-            #item['address'] =  vo.css("span.addressName::text").extract_first()
-            #item['time'] =  vo.re("<span>(.*?)开盘</span>")[0]
-            #item['clicks'] =  vo.re("<span><i>([0-9]+)</i>浏览</span>")[0]
-            #item['price'] =  vo.css("i.fontS24::text").extract_first()
-            print(item)
-            # yield item
-        print('over ' + '>' * 60)
+            item['time'] =  vo.re("<span>(.*?)开盘</span>")[0]
+            item['price'] =  vo.css("p.price::text").extract_first()
+            # print(item)
+            yield item
