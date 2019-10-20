@@ -8,5 +8,7 @@ class WenkuSpider(scrapy.Spider):
     start_urls = ['https://wenku.baidu.com/search?word=python&pn=0']
 
     def parse(self, response):
-        print('=' * 50)
-        print(response)
+        dllist = response.selector.xpath("//dl")
+        #print(len(dllist))
+        for dd in dllist:
+            print(dd.xpath("./dt/p/a/@title").extract_first())
