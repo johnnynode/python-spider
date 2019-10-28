@@ -16,21 +16,23 @@ class CoursesSpider(scrapy.Spider):
             # print(dd.css('span.title::text').extract_first())
             item = CoursesItem()
             item['title'] = dd.css("span.title::text").extract_first()
-            '''
+            ''' '''
             # 后期再对数据格式进行处理
             if item['title']:
                 item['title'] = item['title'].strip()
-            '''
+            
             item['url'] = dd.css("a::attr(href)").extract_first()
             item['pic'] = dd.css("img::attr(src)").extract_first()
             item['teacher'] = dd.css("span.lecname::text").extract_first()
             item['time'] = dd.re_first('<span class="course_lessons">(.*?)课时</span>')
             item['price'] = dd.re_first("￥([0-9\.]+)")
-            print(item)
-            print('=' * 50)
+            #print(item)
+            #print('=' * 50)
+            yield item # 此处的数据会被送到pipelines中去
+
         self.p += 1
-        # 此处只爬取4页
-        if self.p < 4:
+        # 此处只爬取2页
+        if self.p < 2:
             next_url = 'https://edu.csdn.net/courses/o5329/p' + str(self.p)
             url = response.urljoin(next_url)
             yield scrapy.Request(url = url, callback = self.parse)
