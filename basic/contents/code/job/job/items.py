@@ -7,7 +7,6 @@
 
 import scrapy
 
-
 class JobItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
@@ -16,7 +15,7 @@ class JobItem(scrapy.Item):
 class CareersItem(scrapy.Item):
     '''
        人事招聘信息封装类
-       （职位id号，名称、位置、类别、要求、职责和要求）
+       （职位id号，名称、位置、类别、职责、要求）
     '''
     table = "careers"  #表名
     id = scrapy.Field() 
