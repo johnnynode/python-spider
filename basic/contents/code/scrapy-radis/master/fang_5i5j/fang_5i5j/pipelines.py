@@ -19,7 +19,7 @@ class MasterPipeline(object):
         #self.r = redis.Redis.from_url(self.redis_url,decode_responses=True)  
 
     @classmethod
-    def from_crawler(cls,crawler):
+    def from_crawler(cls, crawler):
         '''注入实例化对象（传入参数）'''
         return cls(
             host = crawler.settings.get("REDIS_HOST"),
@@ -28,7 +28,7 @@ class MasterPipeline(object):
 
     def process_item(self, item, spider):  
         #使用正则判断url地址是否有效，并写入redis。
-        if re.search('/bj/loupan/',item['url']):
+        if re.search('/bj/loupan/', item['url']):
             self.r.lpush('fangspider:start_urls', item['url'])
         else:
             self.r.lpush('fangspider:no_urls', item['url'])

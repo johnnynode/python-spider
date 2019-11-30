@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
-from scrapy.spider import CrawlSpider,Rule  
+# python3.7.1 + scrapy1.5.1
+from scrapy.spiders import CrawlSpider, Rule  
 from scrapy.linkextractors import LinkExtractor  
 from fang_5i5j.items import MasterItem  
 
 class FangSpider(CrawlSpider):  
     name = 'master'  
     allowed_domains = ['fang.5i5j.com']
-    start_urls = ['https://fang.5i5j.com/bj/loupan/'] 
-    item = MasterItem()  
-
+    start_urls = ['https://fang.5i5j.com/bj/loupan/']
+    item = MasterItem()
+    
     # Rule是在定义抽取链接的规则
-    rules = (  
+    rules = (
         Rule(LinkExtractor(allow=('https://fang.5i5j.com/bj/loupan/n[0-9]+/',)), callback='parse_item',  
-             follow=True),  
-    )  
-
-    def parse_item(self,response):  
-        item = self.item  
+             follow=True),
+    )
+    
+    def parse_item(self, response):
+        item = self.item
         item['url'] = response.url  
         return item
