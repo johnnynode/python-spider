@@ -24,5 +24,3 @@ class FangSpider(RedisSpider):
             # print(item)
             yield item
         #pass
-
-        
